@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  
+    <div class="signup-container">
+       
+        <h2>Sign Up</h2></center> 
+        <form id="signup-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" required><br><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" required><br><br>
+
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+
+    <script src="jquery-3.7.1.js"></script>
+   <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const signupForm = document.getElementById('signup-form');
+    
+        signupForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+    
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+    
+            // Check if the user already exists in Local Storage
+            const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+            const userExists = existingUsers.some(user => user.username === username);
+    
+            if (userExists) {
+                alert('Username already exists. Please choose another username.');
+            } else {
+                // Create a new user and store it in Local Storage
+                const newUser = { username, password };
+                existingUsers.push(newUser);
+                localStorage.setItem('users', JSON.stringify(existingUsers));
+    
+                alert('Sign up successful. You can now log in.');
+                
+            }
+        });
+    });
+    
+   </script>
+</body>
+</html>
